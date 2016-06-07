@@ -19,23 +19,40 @@
     <div id="map"></div>
 
     <script>
+      var markers = [];
+
       function initMap() {
-        var myLatLng = {lat: 37.774929, lng: -122.419416};
+        var myLatLng = {lat: 39.011902, lng: -98.484246};
+
         var mapOptions = {
           center: myLatLng,
-          zoom: 12
+          zoom: 5
         };
 
         var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-        var marker = new google.maps.Marker({
-          position: myLatLng,
-          //attach map way 1: - attach it to map property
-          // map: map,
-          title: 'Hello world!'
+        google.maps.event.addListener(map, 'click', function(event){
+          addMarker(event.latLng, map);
         });
-        //attach map way 2: this way you can show & hide
-        marker.setMap(map);
+
+        addMarker(myLatLng, map, 'A');
+        addMarker({lat: 33.748995, lng: -84.387982}, map, 'B');
+        addMarker({lat: 32.776664, lng: -96.796988}, map, 'C');
+        addMarker({lat: 37.774929, lng: -122.419416}, map, 'D');
+
+        function addMarker(location, map, label) {
+          var marker = new google.maps.Marker({
+            position: location,
+            //attach map way 1: - attach it to map property
+            map: map,
+            label: label
+          });
+          //attach map way 2: this way you can show & hide
+          // marker.setMap(map);
+        }
+
+
+
       }
     </script>
 
