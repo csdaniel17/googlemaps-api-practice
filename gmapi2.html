@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>google maps api practice</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="map"></div>
+
+    <script>
+      function initMap() {
+        var myLatLng = {lat: 37.774929, lng: -122.419416};
+        var mapOptions = {
+          center: myLatLng,
+          zoom: 12
+        };
+
+        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          //attach map way 1: - attach it to map property
+          // map: map,
+          title: 'Hello world!'
+        });
+        //attach map way 2: this way you can show & hide
+        marker.setMap(map);
+      }
+    </script>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initMap"
+    async defer></script>
+
+  </body>
+</html>
