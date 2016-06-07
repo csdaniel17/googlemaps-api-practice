@@ -23,6 +23,9 @@
 
       function initMap() {
         var myLatLng = {lat: 39.011902, lng: -98.484246};
+        var atlanta = {lat: 33.748995, lng: -84.387982};
+        var dallas = {lat: 32.776664, lng: -96.796988};
+        var sanFran = {lat: 37.774929, lng: -122.419416};
 
         var mapOptions = {
           center: myLatLng,
@@ -31,25 +34,39 @@
 
         var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-        google.maps.event.addListener(map, 'click', function(event){
-          addMarker(event.latLng, map);
-        });
+        // google.maps.event.addListener(map, 'click', function(event){
+        //   addMarker(event.latLng, map);
+        // });
 
-        addMarker(myLatLng, map, 'A');
-        addMarker({lat: 33.748995, lng: -84.387982}, map, 'B');
-        addMarker({lat: 32.776664, lng: -96.796988}, map, 'C');
-        addMarker({lat: 37.774929, lng: -122.419416}, map, 'D');
+        addMarker(myLatLng, map, 'A', 'kansas');
+        addMarker(atlanta, map, 'B', 'atlanta');
+        addMarker(dallas, map, 'C', 'dallas');
+        addMarker(sanFran, map, 'D', 'san francisco');
 
-        function addMarker(location, map, label) {
+        function addMarker(location, map, label, description) {
           var marker = new google.maps.Marker({
             position: location,
             //attach map way 1: - attach it to map property
             map: map,
-            label: label
+            label: label,
+            animation: google.maps.Animation.DROP,
+            draggable: true
           });
           //attach map way 2: this way you can show & hide
           // marker.setMap(map);
+
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+
+          var infowindow = new google.maps.InfoWindow({
+            content: 'welcome to ' + description + '!'
+          });
+
+          markers.push(marker);
         }
+
+
 
 
 
